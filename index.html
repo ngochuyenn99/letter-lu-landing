@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lëtter</title>
-<meta name="description" content="Scan the document you don't understand, and Lëtter tells you what it means and what you need to do next — in your language.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lëtter — understand your official Luxembourg letters</title>
+<meta name="description" content="Lëtter scans official Luxembourg letters and documents and explains them in plain language, in English, Lëtzebuergesch, and four other languages.">
 <link rel="icon" href="icon-1024.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,11 +21,14 @@
     --faint:#6A7481;
     --rule:#D9DEE5;
     --rule-soft:#E6EAEF;
+    --r-chip:6px;
+    --r-row:8px;
+    --r-btn:28px;
     --accent-tint:#E6F2EF;
     color-scheme: light;
   }
   *{box-sizing:border-box}
-  body{margin:0; background:var(--ground); color:var(--body-c); font-family:"Public Sans",system-ui,sans-serif; line-height:1.5}
+  body{background:var(--ground); color:var(--body-c); font-family:"Public Sans",system-ui,sans-serif; line-height:1.5; margin:0}
   img{display:block}
   h1,h2,h3{font-family:inherit; color:var(--ink); margin:0; text-wrap:balance}
   p{margin:0}
@@ -33,12 +36,25 @@
 
   .wrap{max-width:1040px; margin:0 auto; padding-left:max(16px,env(safe-area-inset-left,0px)); padding-right:max(16px,env(safe-area-inset-right,0px))}
 
-  .a-nav{display:flex; align-items:center; justify-content:space-between; padding-block:16px}
-  .a-brand{display:flex; align-items:center; gap:14px; font-weight:800; font-size:26px; letter-spacing:-.01em; color:var(--ink)}
+  #draft-a{background:var(--surface)}
+  .a-nav-band{background:var(--ink); position:sticky; top:0; z-index:50}
+  .a-nav{display:flex; align-items:center; justify-content:space-between; padding-block:14px; gap:16px}
+  .a-brand{display:flex; align-items:center; gap:14px; font-weight:800; font-size:26px; letter-spacing:-.01em; color:#fff; text-decoration:none; cursor:pointer}
   .a-brand img{width:42px; height:42px; border-radius:9px}
-  .a-nav-pill{display:flex; align-items:center; gap:4px; background:var(--panel); border-radius:9999px; padding:5px}
-  .a-nav-pill .pill-item{font-size:15.5px; font-weight:600; color:var(--muted); padding:10px 22px; border-radius:9999px; text-decoration:none; display:inline-block}
-  .a-nav-pill .pill-item.on{background:var(--surface); color:var(--ink); box-shadow:0 1px 2px rgba(27,36,48,.08)}
+  .a-nav-right{display:flex; align-items:center; gap:10px}
+  .a-nav-pill{display:flex; align-items:center; gap:4px; background:rgba(255,255,255,.08); border-radius:9999px; padding:5px}
+  .a-nav-pill .pill-item{font-size:15.5px; font-weight:600; color:rgba(255,255,255,.65); padding:10px 22px; border-radius:9999px; text-decoration:none; display:inline-block}
+  .a-nav-pill .pill-item.on{background:#fff; color:var(--ink); box-shadow:0 1px 2px rgba(0,0,0,.2)}
+  .a-lang-toggle{display:flex; align-items:center; gap:4px; background:rgba(255,255,255,.08); border-radius:9999px; padding:5px}
+  .a-lang-toggle button{font:inherit; font-size:13.5px; font-weight:700; color:rgba(255,255,255,.65); background:none; border:none; padding:9px 15px; border-radius:9999px; cursor:pointer}
+  .a-lang-toggle button.on{background:var(--accent); color:#fff}
+  @media (max-width:480px){
+    .a-brand{font-size:19px; gap:9px}
+    .a-brand img{width:32px; height:32px}
+    .a-nav-right{gap:6px}
+    .a-nav-pill .pill-item{padding:8px 13px; font-size:13px}
+    .a-lang-toggle button{padding:7px 10px; font-size:12.5px}
+  }
   .flag-row{display:flex; justify-content:center; align-items:center; margin-top:12px}
   .flag-row img{width:26px; height:26px; border-radius:50%; object-fit:cover; margin-left:-7px; border:2px solid var(--surface); background:var(--surface)}
   .flag-row img:first-child{margin-left:0}
@@ -115,111 +131,144 @@
   .a-trust h4{font-size:14px; font-weight:700; color:var(--ink); margin-bottom:6px}
   .a-trust p{font-size:14px; color:var(--muted); max-width:34ch}
   .a-trust p a{color:var(--accent); font-weight:600; text-decoration:underline; text-underline-offset:3px}
+
+  .section-end-gap{height:8px}
 </style>
 </head>
 <body>
-
 <section id="draft-a">
-  <div class="wrap">
-    <div class="a-nav">
-      <div class="a-brand"><img src="icon-1024.png" alt=""> Lëtter</div>
-      <div class="a-nav-pill">
-        <a class="pill-item on" href="#how-it-works">How it works</a>
+  <div class="a-nav-band">
+    <div class="wrap">
+      <div class="a-nav">
+        <a class="a-brand" href="#"><img src="icon-1024.png" alt=""> Lëtter</a>
+        <div class="a-nav-right">
+          <div class="a-nav-pill">
+            <a class="pill-item on" href="#how-it-works" data-en="How it works" data-lb="Wéi et funktionéiert">How it works</a>
+          </div>
+          <div class="a-lang-toggle">
+            <button type="button" class="on" data-set-lang="lb">LB</button>
+            <button type="button" data-set-lang="en">EN</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="a-hero">
     <div class="wrap">
-      <span class="a-eyebrow">For Luxembourg residents</span>
-      <h1 class="a-h1">Not a translator.<br><em>A bridge.</em></h1>
-      <p class="a-sub">Scan the document you don't understand, and Lëtter tells you what it means and what you need to do next.</p>
+      <span class="a-eyebrow" data-en="For Luxembourg residents" data-lb="Fir d'Awunner zu Lëtzebuerg">For Luxembourg residents</span>
+      <h1 class="a-h1"><span data-en="Not a translator." data-lb="Net en Iwwersetzer.">Not a translator.</span><br><em data-en="A bridge." data-lb="Eng Bréck.">A bridge.</em></h1>
+      <p class="a-sub" data-en="Scan the document you don't understand, and Lëtter tells you what it means and what you need to do next." data-lb="Maacht e Scan vum Dokument, dat Dir net versteet, an Lëtter erkläert Iech d'Bedeitung an dat, wat Dir fir d'nächst maache musst.">Scan the document you don't understand, and Lëtter tells you what it means and what you need to do next.</p>
       <div class="a-ctas">
-        <a class="btn btn-light" href="mailto:moien@lëtter.lu?subject=I%20want%20to%20try%20out%20L%C3%ABtter&body=I%20want%20to%20try%20out%20L%C3%ABtter.">Want to try it out?</a>
-        <a class="btn btn-ghost-on-accent" href="#how-it-works">See how it works</a>
+        <a class="btn btn-light" href="mailto:moien@lëtter.lu?subject=I%20want%20to%20try%20out%20L%C3%ABtter&body=I%20want%20to%20try%20out%20L%C3%ABtter." data-en="Want to try it out?" data-lb="Wëllt Dir et ausprobéieren?">Want to try it out?</a>
+        <a class="btn btn-ghost-on-accent" href="#how-it-works" data-en="See how it works" data-lb="Kuckt, wéi et funktionéiert">See how it works</a>
       </div>
-      <p class="a-privacy"><svg class="a-privacy-icon" viewBox="0 0 16 16" width="13" height="13" fill="none" aria-hidden="true"><path d="M8 1.5 2.5 3.6v3.9c0 3.3 2.2 6.1 5.5 7 3.3-.9 5.5-3.7 5.5-7V3.6L8 1.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg> Your photo stays on your phone — nothing is stored once you close the app.</p>
+      <p class="a-privacy"><svg class="a-privacy-icon" viewBox="0 0 16 16" width="13" height="13" fill="none" aria-hidden="true"><path d="M8 1.5 2.5 3.6v3.9c0 3.3 2.2 6.1 5.5 7 3.3-.9 5.5-3.7 5.5-7V3.6L8 1.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg> <span data-en="Your photo stays on your phone — nothing is stored once you close the app." data-lb="Är Foto bleift op Ärem Telefon – näischt gëtt gespäichert, soubal Dir d'App zoumaacht.">Your photo stays on your phone — nothing is stored once you close the app.</span></p>
       <div class="a-shot-stack">
-        <img class="back" src="05-chat.png" alt="">
-        <img class="front" src="02-letter-translated.png" alt="">
+        <img class="back" src="05-chat.png" data-en-src="05-chat.png" data-lb-src="lb-05-chat.png" alt="">
+        <img class="front" src="02-letter-translated.png" data-en-src="02-letter-translated.png" data-lb-src="lb-02-letter-translated.png" alt="">
       </div>
     </div>
   </div>
 
   <div class="a-stats">
     <div class="wrap a-stats-grid">
-      <div><div class="a-stat-num">1 in 3</div><div class="a-stat-label">Luxembourg residents have no official language as a mother tongue</div></div>
-      <div><div class="a-stat-num">6</div><div class="a-stat-label">languages Lëtter explains documents in</div>
+      <div><div class="a-stat-num" data-en="1 in 3" data-lb="1 vun 3">1 in 3</div><div class="a-stat-label" data-en="Luxembourg residents have no official language as a mother tongue" data-lb="Awunner zu Lëtzebuerg benotzen keng vun den offiziellen Sproochen als Mammesprooch">Luxembourg residents have no official language as a mother tongue</div></div>
+      <div><div class="a-stat-num">6</div><div class="a-stat-label" data-en="languages Lëtter explains documents in" data-lb="Sproochen, an deenen Lëtter Dokumenter erkläert">languages Lëtter explains documents in</div>
         <div class="flag-row">
           <img src="flags/lu.svg" alt=""><img src="flags/gb.svg" alt=""><img src="flags/de.svg" alt=""><img src="flags/pt.svg" alt=""><img src="flags/vn.svg" alt=""><img src="flags/kr.svg" alt="">
         </div>
       </div>
-      <div><div class="a-stat-num">0</div><div class="a-stat-label">documents stored after you close the app</div></div>
+      <div><div class="a-stat-num">0</div><div class="a-stat-label" data-en="documents stored after you close the app" data-lb="Dokumenter, déi no dem Zoumaache vun der App gespäichert sinn">documents stored after you close the app</div></div>
     </div>
   </div>
 
   <div class="a-trust" id="about">
-    <div class="wrap"><h2 class="a-trust-title">About Lëtter</h2></div>
+    <div class="wrap"><h2 class="a-trust-title" data-en="About Lëtter" data-lb="Iwwer Lëtter">About Lëtter</h2></div>
     <div class="wrap a-bio">
       <div>
-        <span class="a-bio-eyebrow">Who we are</span>
-        <span class="a-bio-loc">Vienna &amp; Luxembourg</span>
+        <span class="a-bio-eyebrow" data-en="Who we are" data-lb="Wie mir sinn">Who we are</span>
+        <span class="a-bio-loc" data-en="Vienna &amp; Luxembourg" data-lb="Wien &amp; Lëtzebuerg">Vienna &amp; Luxembourg</span>
       </div>
       <div class="a-bio-body">
-        <p>A Digital Humanities master's student at the University of Vienna, building Lëtter to help Luxembourg residents understand their own official letters.</p>
+        <p data-en="A Digital Humanities master's student at the University of Vienna, building Lëtter to help Luxembourg residents understand their own official letters." data-lb="Eng Masterstudentin an den digitalen Humanwëssenschaften op der Universitéit Wien, déi Lëtter entwéckelt, fir Awunner zu Lëtzebuerg ze hëllefen, hir offiziell Bréiwer ze verstoen.">A Digital Humanities master's student at the University of Vienna, building Lëtter to help Luxembourg residents understand their own official letters.</p>
         <div class="a-bio-rule"></div>
-        <p class="a-bio-tagline">Zesumme fir d'Awunner — together for the people who live here.</p>
+        <p class="a-bio-tagline" data-en="Together for the people who live here." data-lb="Zesumme fir d'Awunner.">Together for the people who live here.</p>
       </div>
     </div>
     <div class="wrap a-trust-grid">
-      <div><h4>What this is</h4><p>An independent research project that reads and explains official Luxembourg documents and paperwork.</p></div>
-      <div><h4>Not an official service</h4><p>Lëtter is not affiliated with the Luxembourg government and does not replace official correspondence.</p></div>
-      <div><h4>Partnerships &amp; pilots</h4><p>Interested in piloting Lëtter with your organisation? <a href="mailto:moien@lëtter.lu?subject=Piloting%20L%C3%ABtter%20with%20our%20organisation&body=I%27m%20interested%20in%20piloting%20L%C3%ABtter%20with%20my%20organisation.">Let's talk.</a></p></div>
+      <div><h4 data-en="What this is" data-lb="Wat dat ass">What this is</h4><p data-en="An independent research project that reads and explains official Luxembourg documents and paperwork." data-lb="E Fuerschungsprojet, dee sech onofhängeg mat offiziellen lëtzebuergeschen Dokumenter a Pabeieren ausernee setzt an se erkläert.">An independent research project that reads and explains official Luxembourg documents and paperwork.</p></div>
+      <div><h4 data-en="Not an official service" data-lb="Net en offiziellen Déngscht">Not an official service</h4><p data-en="Lëtter is not affiliated with the Luxembourg government and does not replace official correspondence." data-lb="Lëtter huet keng Verbindung zur lëtzebuergescher Regierung an ersetzt keng offiziell Korrespondenz.">Lëtter is not affiliated with the Luxembourg government and does not replace official correspondence.</p></div>
+      <div><h4 data-en="Partnerships &amp; pilots" data-lb="Partnerschaften a Pilotphasen">Partnerships &amp; pilots</h4><p><span data-en="Interested in piloting Lëtter with your organisation? " data-lb="Interesséiert, Lëtter mat Ärer Organisatioun auszetesten? ">Interested in piloting Lëtter with your organisation? </span><a href="mailto:moien@lëtter.lu?subject=Piloting%20L%C3%ABtter%20with%20our%20organisation&body=I%27m%20interested%20in%20piloting%20L%C3%ABtter%20with%20my%20organisation." data-en="Let's talk." data-lb="Loosst eis schwätzen.">Let's talk.</a></p></div>
     </div>
   </div>
 
   <div class="wrap" id="how-it-works">
-    <h2 class="a-section-title">How it works</h2>
+    <h2 class="a-section-title" data-en="How it works" data-lb="Wéi et funktionéiert">How it works</h2>
     <div class="a-feature">
-      <div><div class="a-feature-num">SCAN</div><h3>Point your camera at whatever you don't understand</h3><p>A letter, a poster, the small print on a form — Lëtter reads it straight off the page, however it reached you.</p></div>
+      <div><div class="a-feature-num" data-en="SCAN" data-lb="SCAN">SCAN</div><h3 data-en="Point your camera at whatever you don't understand" data-lb="Riicht Är Kamera op dat, wat Dir net versteet">Point your camera at whatever you don't understand</h3><p data-en="A letter, a poster, the small print on a form — Lëtter reads it straight off the page, however it reached you." data-lb="E Bréif, e Plakat, kleng Schrëften op engem Formulaire – Lëtter liest et direkt vun der Säit, wéi et och ëmmer bei Iech ukomm ass.">A letter, a poster, the small print on a form — Lëtter reads it straight off the page, however it reached you.</p></div>
       <video src="03-scanning.mp4" poster="03-scanning.png" autoplay loop muted playsinline aria-label="Scanning a document with Lëtter"></video>
     </div>
     <div class="a-feature rev">
-      <div><div class="a-feature-num">UNDERSTAND</div><h3>Every line explained, in your language</h3><p>Deadlines, amounts, and what you actually need to do — laid out clearly, next to the original text so you can always check it.</p></div>
-      <img src="02-letter-translated.png" alt="Lëtter translated document view">
+      <div><div class="a-feature-num" data-en="UNDERSTAND" data-lb="VERSTOEN">UNDERSTAND</div><h3 data-en="Every line explained, in your language" data-lb="All Zeil erkläert, an Ärer Sprooch">Every line explained, in your language</h3><p data-en="Deadlines, amounts, and what you actually need to do — laid out clearly, next to the original text so you can always check it." data-lb="Fristen, Montanten an dat, wat Dir tatsächlech maache musst – kloer duergeluecht niewent dem Originaltext, fir datt Dir et ëmmer kënnt nogoen.">Deadlines, amounts, and what you actually need to do — laid out clearly, next to the original text so you can always check it.</p></div>
+      <img src="02-letter-translated.png" data-en-src="02-letter-translated.png" data-lb-src="lb-02-letter-translated.png" alt="Lëtter translated document view">
     </div>
     <div class="a-feature">
-      <div><div class="a-feature-num">ASK</div><h3>Still unsure? Just ask</h3><p>Chat with Lëtter about anything in the document, in plain language, until it actually makes sense — every answer can be read aloud too, for anyone who finds that easier than reading.</p></div>
-      <img src="05-chat.png" alt="Lëtter chat view">
+      <div><div class="a-feature-num" data-en="ASK" data-lb="FROEN">ASK</div><h3 data-en="Still unsure? Just ask" data-lb="Nach net sécher? Fro einfach.">Still unsure? Just ask</h3><p data-en="Chat with Lëtter about anything in the document, in plain language, until it actually makes sense — every answer can be read aloud too, for anyone who finds that easier than reading." data-lb="Schwätzt mat Lëtter iwwer alles am Dokument, an einfacher Sprooch, bis et wierklech Sënn mécht – all Äntwert kann och virgelies ginn, fir déi, déi dat léiwer maachen wéi ze liesen.">Chat with Lëtter about anything in the document, in plain language, until it actually makes sense — every answer can be read aloud too, for anyone who finds that easier than reading.</p></div>
+      <img src="05-chat.png" data-en-src="05-chat.png" data-lb-src="lb-05-chat.png" alt="Lëtter chat view">
     </div>
   </div>
 
   <div class="a-close" id="contact">
-    <p class="line">Zesumme fir d'Awunner — together for the people who live here.</p>
-    <a class="btn btn-light" href="mailto:moien@lëtter.lu?subject=I%20want%20to%20try%20out%20L%C3%ABtter&body=I%20want%20to%20try%20out%20L%C3%ABtter.">Want to try it out?</a>
+    <p class="line" data-en="Together for the people who live here." data-lb="Zesumme fir d'Awunner.">Together for the people who live here.</p>
+    <a class="btn btn-light" href="mailto:moien@lëtter.lu?subject=I%20want%20to%20try%20out%20L%C3%ABtter&body=I%20want%20to%20try%20out%20L%C3%ABtter." data-en="Want to try it out?" data-lb="Wëllt Dir et ausprobéieren?">Want to try it out?</a>
 
     <div class="a-footer">
       <div class="wrap a-footer-grid">
         <div class="a-footer-brand">
           <div class="a-footer-logo"><img src="icon-1024.png" alt=""> Lëtter</div>
-          <p>Reads official Luxembourg letters and documents, and explains them in plain language.</p>
+          <p data-en="Reads official Luxembourg letters and documents, and explains them in plain language." data-lb="Liest offiziell lëtzebuergesch Bréiwer a Dokumenter an erkläert se an einfacher Sprooch.">Reads official Luxembourg letters and documents, and explains them in plain language.</p>
         </div>
         <div class="a-footer-col">
-          <h5>Contact</h5>
+          <h5 data-en="Contact" data-lb="Kontakt">Contact</h5>
           <a href="mailto:moien@lëtter.lu">moien@lëtter.lu</a>
         </div>
         <div class="a-footer-col">
-          <h5>About</h5>
-          <a href="#about">Who's behind Lëtter</a>
+          <h5 data-en="About" data-lb="Iwwer eis">About</h5>
+          <a href="#about" data-en="Who's behind Lëtter" data-lb="Wie steet hannert Lëtter">Who's behind Lëtter</a>
         </div>
       </div>
       <div class="wrap a-footer-bottom">
-        <p>© 2026 Lëtter. Independent research project, based in Luxembourg.</p>
-        <p>Privacy and accessibility notices are being prepared ahead of any public pilot.</p>
+        <p>© 2026 Lëtter. <span data-en="Independent research project, based in Luxembourg." data-lb="Onofhängege Fuerschungsprojet, baséiert zu Lëtzebuerg.">Independent research project, based in Luxembourg.</span></p>
+        <p data-en="Privacy and accessibility notices are being prepared ahead of any public pilot." data-lb="D'Notize fir de Schutz vun der Privatsphär an d'Zougänglechkeet gi virun all ëffentleche Pilotprojet virbereet.">Privacy and accessibility notices are being prepared ahead of any public pilot.</p>
       </div>
     </div>
   </div>
-</section>
 
+  <script>
+  (function(){
+    function apply(lang){
+      document.querySelectorAll('[data-en]').forEach(function(el){
+        var val = lang === 'lb' ? el.getAttribute('data-lb') : el.getAttribute('data-en');
+        if (val !== null) el.textContent = val;
+      });
+      document.querySelectorAll('[data-en-src]').forEach(function(el){
+        var val = lang === 'lb' ? el.getAttribute('data-lb-src') : el.getAttribute('data-en-src');
+        if (val) el.src = val;
+      });
+      document.querySelectorAll('[data-set-lang]').forEach(function(btn){
+        btn.classList.toggle('on', btn.getAttribute('data-set-lang') === lang);
+      });
+      try { localStorage.setItem('letter-lang', lang); } catch(e){}
+    }
+    document.querySelectorAll('[data-set-lang]').forEach(function(btn){
+      btn.addEventListener('click', function(){ apply(btn.getAttribute('data-set-lang')); });
+    });
+    var saved = 'lb';
+    try { saved = localStorage.getItem('letter-lang') || 'lb'; } catch(e){}
+    apply(saved);
+  })();
+  </script>
+</section>
 </body>
 </html>
