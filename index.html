@@ -8,7 +8,7 @@
 <link rel="icon" href="icon-1024.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=Homemade+Apple&display=swap" rel="stylesheet">
 <style>
   :root{
     --accent:#1F6F63;
@@ -41,6 +41,8 @@
   .a-nav{display:flex; align-items:center; justify-content:space-between; padding-block:14px; gap:16px}
   .a-brand{display:flex; align-items:center; gap:14px; font-weight:800; font-size:26px; letter-spacing:-.01em; color:#fff; text-decoration:none; cursor:pointer}
   .a-brand img{width:42px; height:42px; border-radius:9px}
+  .a-brand-stack{display:flex; flex-direction:column; align-items:flex-start; line-height:1}
+  .a-brand-your{font-family:'Homemade Apple',cursive; font-weight:400; font-size:20px; line-height:1; color:#6FC9B8; transform:rotate(-8deg); margin-bottom:-7px; margin-left:1px}
   .a-nav-right{display:flex; align-items:center; gap:10px}
   .a-nav-pill{display:flex; align-items:center; gap:4px; background:rgba(255,255,255,.08); border-radius:9999px; padding:5px}
   .a-nav-pill .pill-item{font-size:15.5px; font-weight:600; color:rgba(255,255,255,.65); padding:10px 22px; border-radius:9999px; text-decoration:none; display:inline-block}
@@ -51,6 +53,7 @@
   @media (max-width:480px){
     .a-brand{font-size:19px; gap:9px}
     .a-brand img{width:32px; height:32px}
+    .a-brand-your{font-size:15px; margin-bottom:-5px}
     .a-nav-right{gap:6px}
     .a-nav-pill .pill-item{padding:8px 13px; font-size:13px}
     .a-lang-toggle button{padding:7px 10px; font-size:12.5px}
@@ -140,7 +143,7 @@
   <div class="a-nav-band">
     <div class="wrap">
       <div class="a-nav">
-        <a class="a-brand" href="#"><img src="icon-1024.png" alt=""> Lëtter</a>
+        <a class="a-brand" href="#"><img src="icon-1024.png" alt=""> <span class="a-brand-stack"><span class="a-brand-your">your</span><span>Lëtter</span></span></a>
         <div class="a-nav-right">
           <div class="a-nav-pill">
             <a class="pill-item on" href="#how-it-works" data-en="How it works" data-lb="Wéi et funktionéiert">How it works</a>
